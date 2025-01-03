@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle global hotkeys for edit and delete
     document.addEventListener('keydown', (e) => {
+        const tomSelectInstance = document.querySelector('.tom-select-custom').tomselect;
+        if (tomSelectInstance.isOpen) {
+            return; // Do not handle table navigation if Tom Select dropdown is open
+        }
+
         const rows = Array.from(document.querySelectorAll('tr[data-id]')); // Rows with data-id attributes
         let focusedRowIndex = rows.findIndex(row => row.classList.contains('focused'));
 
@@ -144,6 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('quantity').value = '';
             fields[2].focus(); // Return focus to the ward_name field
             fetchData(currentPage, limit); // Refresh the table
+
+            // remove the selected entry in tom-select
+            document.querySelector('.tom-select-custom').tomselect.clear();
+
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred while saving data.');

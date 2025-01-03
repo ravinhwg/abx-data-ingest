@@ -12,10 +12,16 @@ h2 {
 form {
     margin: 20px 0;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* Add some space between inputs */
 }
 
-input {
-    margin: 5px;
+input,
+button {
+    margin: 0;
+    /* Remove default margin */
     padding: 8px;
     width: 200px;
 }
@@ -64,4 +70,14 @@ input:focus {
 /* Highlight focused row */
 tr.focused {
     background-color: #e0f7fa;
+}
+
+.tom-select-custom {
+    width: 200px;
+    /* Match the width of other inputs */
+    box-sizing: border-box;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
