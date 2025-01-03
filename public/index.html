@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antibiotics Data Entry</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Antibiotic Data Entry</h1>
+
+    <!-- Data Entry Form -->
+    <form id="data-form">
+        <input type="date" id="issue_date" placeholder="Issue Date" autofocus />
+        <input type="text" id="antibiotic_name" placeholder="Antibiotic Name" />
+        <input type="text" id="ward_name" placeholder="Ward Name" />
+        <input type="number" id="quantity" placeholder="Quantity" />
+        <button id="submit-button" type="button">Submit</button>
+    </form>
+
+    <h2>Issued Data</h2>
+    <div id="pagination-info"></div>
+
+    <!-- Table to Display Data -->
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Issue Date</th>
+                <th>Antibiotic Name</th>
+                <th>Ward Name</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Data rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
