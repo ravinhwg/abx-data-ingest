@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.getElementById('issue_date').value = issueDate;
         document.getElementById('antibiotic_name').value = cells[1].textContent;
-        document.getElementById('ward_name').value = cells[2].textContent;
+        document.getElementById('ward_name').tomselect.addItem(cells[2].textContent);
         document.getElementById('quantity').value = cells[3].textContent;
 
         form.dataset.editId = id; // Set the ID of the row being edited
@@ -182,6 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await fetch(`http://localhost:3000/api/delete-data/${id}`, { method: 'DELETE' });
                 fetchData(currentPage, limit); // Refresh the table
+                //clear the text fields
+                document.getElementById('issue_date').value = '';
+                document.getElementById('antibiotic_name').value = '';
+                document.getElementById('quantity').value = '';
+                // remove the selected entry in tom-select
+                document.querySelector('.tom-select-custom').tomselect.clear();
+
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while deleting the data.');
