@@ -165,9 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const cells = row.querySelectorAll('td');
 
         // Convert the date to the format YYYY-MM-DD
-        const issueDate = new Date(cells[0].textContent).toISOString().split('T')[0];
+        const issueYear = new Date(cells[0].textContent).getFullYear();
+        const issueMonth = new Date(cells[0].textContent).getMonth() + 1;
+        const issueDay = new Date(cells[0].textContent).getDate();
 
-        document.getElementById('issue_date').value = issueDate;
+        document.getElementById('issue_date').value = String(issueYear) + '-' + String(issueMonth).padStart(2, '0') + '-' + String(issueDay).padStart(2, '0');
         document.getElementById('antibiotic_name').value = cells[1].textContent;
         document.getElementById('ward_name').tomselect.addItem(cells[2].textContent);
         document.getElementById('quantity').value = cells[3].textContent;
