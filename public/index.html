@@ -15,7 +15,45 @@
     <form id="data-form">
         <input type="date" id="issue_date" placeholder="Issue Date" autofocus />
         <input type="text" id="antibiotic_name" placeholder="Antibiotic Name" />
-        <input type="text" id="ward_name" placeholder="Ward Name" />
+        <input list="wards" id="ward_name" placeholder="Ward Name" />
+        <datalist id="wards">
+            <option value="WD1">
+            <option value="WD2">
+            <option value="WD3">
+            <option value="WD4">
+            <option value="WD5">
+            <option value="WD6">
+            <option value="WD7">
+            <option value="WD8">
+            <option value="WD9">
+            <option value="WD10">
+            <option value="WD11">
+            <option value="WD12">
+            <option value="WD14">
+            <option value="WD15">
+            <option value="WD16">
+            <option value="WD17">
+            <option value="WD19">
+            <option value="WD21">
+            <option value="Wd 24/26">
+            <option value="Wd 30/31">
+            <option value="Wd 34">
+            <option value="Wd 35">
+            <option value="Wd 36">
+            <option value="Wd 37/38">
+            <option value="Wd 46/47">
+            <option value="Wd 48/49">
+            <option value="Wd 71">
+            <option value="Wd 72">
+            <option value="PICU">
+            <option value="ITU">
+            <option value="CTU ICU">
+            <option value="ETC ICU">
+            <option value="MICU">
+            <option value="NICU">
+
+                <!-- Add more wards as needed -->
+        </datalist>
         <input type="number" id="quantity" placeholder="Quantity" />
         <button id="submit-button" type="button">Submit</button>
     </form>
