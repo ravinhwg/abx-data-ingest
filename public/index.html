@@ -43,17 +43,6 @@
             <option value="WD37/38">
             <option value="WD46/47">
             <option value="WD48/49">
-            <option value="WD53">
-            <option value="WD71">
-            <option value="WD72">
-            <option value="PICU">
-            <option value="ITU">
-            <option value="CTU ICU">
-            <option value="ETC ICU">
-            <option value="MICU">
-            <option value="NICU">
-
-                <!-- Add more wards as needed -->
         </datalist>
         <input type="number" id="quantity" placeholder="Quantity" />
         <button id="submit-button" type="button">Submit</button>
@@ -61,6 +50,10 @@
 
     <h2>Issued Data</h2>
     <div id="pagination-info"></div>
+    <div id="pagination-controls">
+        <button id="prev-page" disabled>Previous</button>
+        <button id="next-page" disabled>Next</button>
+    </div>
 
     <!-- Table to Display Data -->
     <table id="data-table">

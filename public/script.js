@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('data-form');
     const fields = Array.from(form.elements); // Convert form elements to an array
+    let currentPage = 1;
+    const limit = 10;
 
     // Fetch data and populate table on page load
-    fetchData();
+    fetchData(currentPage, limit);
 
     // Auto-focus next field after input
     fields.forEach((field, index) => {
@@ -50,6 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Submit button listener
     document.getElementById('submit-button').addEventListener('click', submitForm);
 
+    // Pagination controls listeners
+    document.getElementById('prev-page').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchData(currentPage, limit);
+        }
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+        currentPage++;
+        fetchData(currentPage, limit);
+    });
+
     // Function to fetch data from the server and populate the table
     async function fetchData(page = 1, limit = 10) {
         const tableBody = document.getElementById('table-body');
@@ -79,6 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Handle pagination (if needed)
             const paginationInfo = document.getElementById('pagination-info');
             paginationInfo.textContent = `Page ${result.currentPage} of ${result.totalPages}`;
+
+            // Enable/disable pagination buttons
+            document.getElementById('prev-page').disabled = result.currentPage === 1;
+            document.getElementById('next-page').disabled = result.currentPage === result.totalPages;
         } catch (error) {
             console.error('Error:', error);
         }
@@ -116,12 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Clear form and refresh
-            fields[2].value = '' // Clear the fields
-            fields[3].value = '';
-            // form.reset();
-            fields[2].focus(); // Return focus to the first field
-            fetchData(); // Refresh the table
+            // Clear form except for issue_date and antibiotic_name
+            document.getElementById('ward_name').value = '';
+            document.getElementById('quantity').value = '';
+            fields[2].focus(); // Return focus to the ward_name field
+            fetchData(currentPage, limit); // Refresh the table
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred while saving data.');
@@ -150,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (confirm('Are you sure you want to delete this entry?')) {
             try {
                 await fetch(`http://localhost:3000/api/delete-data/${id}`, { method: 'DELETE' });
-                fetchData(); // Refresh the table
+                fetchData(currentPage, limit); // Refresh the table
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while deleting the data.');
