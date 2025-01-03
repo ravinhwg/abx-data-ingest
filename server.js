@@ -23,11 +23,10 @@ const pool = new Pool({
 
 // API to save data
 app.post('/api/save-data', async (req, res) => {
-    console.log(req.body)
     const { issue_date, antibiotic_name, ward_name, quantity } = req.body;
     try {
         await pool.query(
-            'INSERT INTO drug_issues (issue_date, antibiotic_name, ward_name, quantity) VALUES ($1, $2, $3, $4)',
+            'INSERT INTO drug_issues (issue_date, antibiotic_name, ward_name, quantity, timestamp) VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP)',
             [issue_date, antibiotic_name, ward_name, quantity]
         );
         res.status(201).send('Data saved successfully');
@@ -43,7 +42,7 @@ app.get('/api/get-data', async (req, res) => {
     const offset = (page - 1) * limit;
 
     try {
-        const query = 'SELECT * FROM drug_issues ORDER BY id ASC LIMIT $1 OFFSET $2';
+        const query = 'SELECT * FROM drug_issues ORDER BY timestamp DESC LIMIT $1 OFFSET $2';
         const result = await pool.query(query, [limit, offset]);
 
         const countResult = await pool.query('SELECT COUNT(*) AS total FROM drug_issues');
