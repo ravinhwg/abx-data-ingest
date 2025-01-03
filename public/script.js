@@ -78,8 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
             data.forEach(item => {
                 const row = document.createElement('tr');
                 row.dataset.id = item.id; // Store item ID in dataset
+
+                // Format the issue date to display only the date
+                const issueDate = new Date(item.issue_date).toLocaleDateString();
+
                 row.innerHTML = `
-                    <td>${item.issue_date}</td>
+                    <td>${issueDate}</td>
                     <td>${item.antibiotic_name}</td>
                     <td>${item.ward_name}</td>
                     <td>${item.quantity}</td>
