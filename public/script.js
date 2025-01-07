@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Handle pagination (if needed)
             const paginationInfo = document.getElementById('pagination-info');
-            paginationInfo.textContent = `Page ${result.currentPage} of ${result.totalPages}`;
+            paginationInfo.textContent = `Page ${result.currentPage} of ${result.totalPages} (${result.totalItems} Items)`;
 
             // Enable/disable pagination buttons
             document.getElementById('prev-page').disabled = result.currentPage === 1;
