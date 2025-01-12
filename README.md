@@ -60,5 +60,6 @@ A local application for collecting and managing drug data.
 To run tests, use the following command:
 ```sh
 npm test
+```
 License
-This project is licensed under the MIT License. ```
+This project is licensed under the MIT License.
