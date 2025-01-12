@@ -5,7 +5,7 @@ const sqlite3 = require('sqlite3').verbose();
 
 require('dotenv').config();
 
-const db = new sqlite3.Database(process.env.NODE_ENV === "prod" ? "./abx-data.sqlite" : ":memory:");
+const db = new sqlite3.Database(process.env.NODE_ENV === "prod" ? "./abx-data.sqlite" : process.env.NODE_ENV === "test" ? "abx-data-test.sqlite": "abx-data-test.sqlite");
 const app = express();
 const port = 3000;
 

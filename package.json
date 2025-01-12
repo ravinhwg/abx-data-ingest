@@ -5,9 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "NODE_ENV=test mocha tests/**/*.test.js",
-    "test:integration": "NODE_ENV=test mocha tests/integration.test.js",
-    "test:e2e": "cypress open"
+    "dev": "NODE_ENV=test npm run seed && NODE_ENV=test nodemon server.js",
+    "seed": "node seed.js"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -21,7 +20,9 @@
     "chai": "^5.1.2",
     "cypress": "^13.17.0",
     "mocha": "^11.0.1",
+    "nodemon": "^3.1.9",
     "sinon": "^19.0.2",
+    "start-server-and-test": "^2.0.9",
     "supertest": "^7.0.0"
   }
 }
