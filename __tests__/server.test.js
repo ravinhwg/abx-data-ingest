@@ -1,5 +1,7 @@
 const request = require('supertest');
+const { exec } = require('child_process');
 const { app, db, initializeDatabase, server } = require('../server');
+
 
 
 afterAll((done) => {

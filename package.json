@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "NODE_ENV=test npm run seed && NODE_ENV=test nodemon server.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "test": "jest --coverage"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

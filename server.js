@@ -14,24 +14,6 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
 
-// Function to initialize the database schema
-function initializeDatabase() {
-    const createTableQuery = `
-        CREATE TABLE IF NOT EXISTS drug_issues (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            issue_date TEXT,
-            antibiotic_name TEXT,
-            ward_name TEXT,
-            quantity INTEGER,
-            timestamp TEXT
-        )
-    `;
-    db.run(createTableQuery, (err) => {
-        if (err) {
-            console.error('Error creating table:', err);
-        }
-    });
-}
 
 // API to save data
 app.post('/api/save-data', (req, res) => {
@@ -110,4 +92,4 @@ const server = app.listen(port, () => {
     console.log(`Server running at http://localhost:${port} on ${process.env.NODE_ENV === "prod" ? "PRODUCTION" : process.env.NODE_ENV === "test" ? "TESTING": "DEVELOPMENT"} mode`);
 });
 
-module.exports = { app, server, db, initializeDatabase };
+module.exports = { app, server, db};
