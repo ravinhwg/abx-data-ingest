@@ -7,7 +7,12 @@
     "start": "node server.js",
     "dev": "NODE_ENV=test npm run seed && NODE_ENV=test nodemon server.js",
     "seed": "node seed.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "build:ncc": "ncc build server.js -o dist/build",
+    "package:mac": "mkdir -p dist/mac && cp dist/build/index.js dist/mac/ && cp -r dist/build/build dist/mac/ && cp -r public dist/mac/ && cp .env dist/mac/ && npm run seed && cp abx-data.sqlite dist/mac/abx-data.sqlite && cd dist/mac",
+    "package:win": "mkdir -p dist/win && cp dist/build/index.js dist/win/ && cp -r dist/build/build dist/win/ && cp -r public dist/win/ && cp .env dist/win/ && npm run seed && cp abx-data.sqlite dist/win/abx-data.sqlite && cd dist/win && zip -r ../drug-data-win.zip .",
+    "package": "npm run build:ncc && npm run package:mac",
+    "nex": "cd dist && npx pkg mac/index.js -t latest-macos-x64 --output dist/drug-data-collection-mac"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -18,7 +23,9 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.38.3",
     "jest": "^29.7.0",
+    "nexe": "^4.0.0-rc.6",
     "nodemon": "^3.1.9",
     "supertest": "^7.0.0"
   }

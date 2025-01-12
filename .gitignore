@@ -4,3 +4,6 @@
 /*.sqlite
 /*.csv
 /coverage
+/dist
+.DS_Store
+/*.zip
