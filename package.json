@@ -3,23 +3,23 @@
   "version": "1.0.0",
   "description": "A local application for collecting and managing drug data",
   "main": "server.js",
+  "bin": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "NODE_ENV=test npm run seed && NODE_ENV=test nodemon server.js",
     "seed": "node seed.js",
     "test": "jest --coverage",
-    "build:ncc": "ncc build server.js -o dist/build",
-    "package:mac": "mkdir -p dist/mac && cp dist/build/index.js dist/mac/ && cp -r dist/build/build dist/mac/ && cp -r public dist/mac/ && cp .env dist/mac/ && npm run seed && cp abx-data.sqlite dist/mac/abx-data.sqlite && cd dist/mac",
-    "package:win": "mkdir -p dist/win && cp dist/build/index.js dist/win/ && cp -r dist/build/build dist/win/ && cp -r public dist/win/ && cp .env dist/win/ && npm run seed && cp abx-data.sqlite dist/win/abx-data.sqlite && cd dist/win && zip -r ../drug-data-win.zip .",
-    "package": "npm run build:ncc && npm run package:mac",
-    "nex": "cd dist && npx pkg mac/index.js -t latest-macos-x64 --output dist/drug-data-collection-mac"
+    "build:ncc": "NODE_ENV=prod ncc build server.js -o dist",
+    "build:pkg": "npm run package && cd dist && npx pkg index.js --output start --config build-config.json && rm index.js && rm build-config.json && zip -r dist.zip .",
+    "package": "npm run build:ncc && cp -r public dist/ && cp .env dist/ && npm run seed && cp abx-data.sqlite dist/abx-data.sqlite && cp build-config.json dist/",
+    "clean": "rm -rf dist",
+    "build:gyp": "npx node-gyp configure && npx node-gyp build"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "pg": "^8.11.1",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {

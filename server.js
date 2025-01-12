@@ -5,7 +5,9 @@ const sqlite3 = require('sqlite3').verbose();
 
 require('dotenv').config();
 
-const db = new sqlite3.Database(process.env.NODE_ENV === "prod" ? "./abx-data.sqlite" : process.env.NODE_ENV === "test" ? "abx-data-test.sqlite": "abx-data-test.sqlite");
+const db = new sqlite3.Database(
+  process.env.NODE_ENV === "test" ? "abx-data-test.sqlite" : "./abx-data.sqlite"
+);
 const app = express();
 const port = 3000;
 
@@ -89,7 +91,9 @@ app.delete('/api/delete-data/:id', (req, res) => {
 
 // Start server
 const server = app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port} on ${process.env.NODE_ENV === "prod" ? "PRODUCTION" : process.env.NODE_ENV === "test" ? "TESTING": "DEVELOPMENT"} mode`);
+    console.log(`Server running at http://localhost:${port} on ${
+        process.env.NODE_ENV === "test" ? "TESTING" : "PRODUCTION"
+    } mode`);
 });
 
 module.exports = { app, server, db};
