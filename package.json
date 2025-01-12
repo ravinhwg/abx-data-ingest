@@ -1,10 +1,13 @@
 {
   "name": "drug-data-collection",
   "version": "1.0.0",
-  "description": "A local application for collecting and managing drug data.",
+  "description": "A local application for collecting and managing drug data",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "NODE_ENV=test mocha tests/**/*.test.js",
+    "test:integration": "NODE_ENV=test mocha tests/integration.test.js",
+    "test:e2e": "cypress open"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -16,7 +19,9 @@
   },
   "devDependencies": {
     "chai": "^5.1.2",
+    "cypress": "^13.17.0",
     "mocha": "^11.0.1",
+    "sinon": "^19.0.2",
     "supertest": "^7.0.0"
   }
 }
