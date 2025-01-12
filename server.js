@@ -106,8 +106,8 @@ app.delete('/api/delete-data/:id', (req, res) => {
 });
 
 // Start server
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server running at http://localhost:${port} on ${process.env.NODE_ENV === "prod" ? "PRODUCTION" : process.env.NODE_ENV === "test" ? "TESTING": "DEVELOPMENT"} mode`);
 });
 
-module.exports = { app, db, initializeDatabase };
+module.exports = { app, server, db, initializeDatabase };
