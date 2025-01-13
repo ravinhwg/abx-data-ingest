@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.innerHTML = ''; // Clear the table body before populating
 
         try {
-            const response = await fetch(`http://localhost:3000/api/get-data?page=${page}&limit=${limit}`);
+            const response = await fetch(`/api/get-data?page=${page}&limit=${limit}`);
             const result = await response.json();
             const data = result.data;
 
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (editId) {
                 // Update existing entry
-                await fetch(`http://localhost:3000/api/update-data/${editId}`, {
+                await fetch(`/api/update-data/${editId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ issue_date, antibiotic_name, ward_name, quantity }),
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 delete form.dataset.editId;
             } else {
                 // Save new entry
-                await fetch('http://localhost:3000/api/save-data', {
+                await fetch('/api/save-data', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ issue_date, antibiotic_name, ward_name, quantity }),
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deleteRow = async function(id) {
         if (confirm('Are you sure you want to delete this entry?')) {
             try {
-                await fetch(`http://localhost:3000/api/delete-data/${id}`, { method: 'DELETE' });
+                await fetch(`/api/delete-data/${id}`, { method: 'DELETE' });
                 fetchData(currentPage, limit); // Refresh the table
                 //clear the text fields
                 document.getElementById('issue_date').value = '';

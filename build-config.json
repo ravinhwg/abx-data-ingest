@@ -1,3 +1,15 @@
 {
-    "scripts": "build/**/*"
+    "scripts": "build/**/*",
+    "sourceType": "module",
+    "assets": [
+        "public/**/*",
+        ".env",
+        "abx-data.sqlite"
+    ],
+    "pkg": {
+        "targets": [
+            "node19"
+        ],
+        "outputPath": "dist"
+    }
 }
