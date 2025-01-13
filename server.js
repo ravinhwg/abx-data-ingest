@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
+const net = require('net');
 
 require('dotenv').config();
 
@@ -16,6 +17,18 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
 
+// Function to get random available port
+const getRandomPort = () => {
+    return new Promise((resolve, reject) => {
+        const server = net.createServer();
+        server.listen(0, () => {
+            const port = server.address().port;
+            server.close(() => {
+                resolve(port);
+            });
+        });
+    });
+};
 
 // API to save data
 app.post('/api/save-data', (req, res) => {
@@ -26,7 +39,7 @@ app.post('/api/save-data', (req, res) => {
             console.error(err);
             res.status(500).send('Error saving data');
         } else {
-            res.status(201).send('Data saved successfully');
+            res.status(200).send('Data saved successfully');
         }
     });
 });
@@ -89,11 +102,31 @@ app.delete('/api/delete-data/:id', (req, res) => {
     });
 });
 
-// Start server
-const server = app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port} on ${
-        process.env.NODE_ENV === "test" ? "TESTING" : "PRODUCTION"
-    } mode`);
-});
+// Modify server start
+const startServer = async () => {
+    try {
+        const randomPort = await getRandomPort();
+        const server = app.listen(randomPort, async () => {
+            const serverUrl = `http://localhost:${randomPort}`;
+            console.log(`Server running at ${serverUrl} on ${
+                process.env.NODE_ENV === "test" ? "TESTING" : "PRODUCTION"
+            } mode`);
 
-module.exports = { app, server, db};
+            // Launch browser
+            if (process.env.NODE_ENV !== "test") {
+                const open = (await import('open')).default;
+                open(serverUrl);
+            }
+        });
+        return server;
+    } catch (error) {
+        console.error('Failed to start server:', error);
+        process.exit(1);
+    }
+};
+
+// Initialize server
+(async () => {
+    const server = await startServer();
+    module.exports = { app, server, db, startServer };
+})();
