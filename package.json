@@ -6,15 +6,15 @@
   "bin": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "NODE_ENV=test npm run seed && NODE_ENV=test nodemon server.js",
+    "dev": "cross-env NODE_ENV=test npm run seed && cross-env NODE_ENV=test nodemon server.js",
     "seed": "node seed.js",
     "test": "jest --coverage",
-    "build:ncc": "NODE_ENV=prod ncc build server.js -o dist",
-    "build:pkg:macos:arm": "npm run package && cd dist && npx --yes pkg index.js --output start-macos --targets latest-macos-arm64 --config build-config.json && rm index.js && rm build-config.json && zip -r dist-macos.zip .",
-    "build:pkg:linux": "npm run package && cd dist && npm install -g pkg && npm install -g pkg && pkg index.js --output start-linux --targets latest-linux-x64 --config build-config.json && rm index.js && rm build-config.json && zip -r dist-linux.zip .",
-    "build:pkg:win": "npm run package && cd dist && npx pkg --yes index.js --output start-win --targets latest-win-x64 --config build-config.json && rm index.js && rm build-config.json && zip -r dist-win.zip .",
-    "package": "npm run build:ncc && cp -r public dist/ && cp .env.example dist/.env && npm run seed && cp abx-data.sqlite dist/abx-data.sqlite && cp build-config.json dist/",
-    "clean": "rm -rf dist",
+    "build:ncc": "cross-env NODE_ENV=prod ncc build server.js -o dist",
+    "build:pkg:macos:arm": "npm run package && cd dist && npx --yes pkg index.js --output start-macos --targets latest-macos-arm64 --config build-config.json && del index.js && del build-config.json && zip -r dist-macos.zip .",
+    "build:pkg:linux": "npm run package && cd dist && pkg index.js --output start-linux --targets latest-linux-x64 --config build-config.json && rm index.js && rm build-config.json && zip -r dist-linux.zip .",
+    "build:pkg:win": "npm run package && cd dist && npx pkg --yes index.js --output start-win --targets latest-win-x64 --config build-config.json && del index.js && del build-config.json && zip -r dist-win.zip .",
+    "package": "npm run build:ncc && xcopy /E /I public dist\\public && copy .env.example dist\\.env && npm run seed && copy abx-data.sqlite dist\\abx-data.sqlite && copy build-config.json dist\\",
+    "clean": "rimraf dist",
     "build:gyp": "npx node-gyp configure && npx node-gyp build"
   },
   "dependencies": {
@@ -29,6 +29,8 @@
     "jest": "^29.7.0",
     "nexe": "^4.0.0-rc.6",
     "nodemon": "^3.1.9",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.1"
   }
 }
