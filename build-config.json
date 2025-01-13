@@ -1,9 +1,3 @@
 {
-    "scripts": "build/**/*",
-    "targets": [
-        "latest-macos-arm64",
-        "latest-macos-x64",
-        "latest-linux-x64",
-        "latest-windows-x64"
-    ]
+    "scripts": "build/**/*"
 }
