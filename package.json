@@ -12,7 +12,7 @@
     "build:ncc": "cross-env NODE_ENV=prod ncc build server.js -o dist",
     "build:pkg:macos:arm": "npm run package:unix && cd dist && npm install -g pkg && pkg index.js --output start-macos --targets latest-macos-arm64 --config build-config.json && rimraf index.js && rimraf build-config.json && zip -r dist-macos.zip .",
     "build:pkg:linux": "npm run package:unix && cd dist && npm install -g pkg && pkg index.js --output start-linux --targets latest-linux-x64 --config build-config.json && rimraf index.js && rimraf build-config.json && zip -r dist-linux.zip .",
-    "build:pkg:win": "npm run package:win && cd dist && npm install -g pkg && pkg index.js --output start-win --targets latest-win-x64 --config build-config.json && rimraf index.js && rimraf build-config.json && Compress-Archive -Path (Get-Location)\\* -DestinationPath (Get-Location)\\dist-win.zip",
+    "build:pkg:win": "npm run package:win && cd dist && npm install -g pkg && pkg index.js --output start-win --targets latest-win-x64 --config build-config.json && rimraf index.js && rimraf build-config.json && powershell -Command \"Compress-Archive -Path '.\\*' -DestinationPath '.\\dist-win.zip' -Force\"",
     "package:win": "npm run build:ncc && xcopy /E /I public dist\\public && copy .env.example dist\\.env && npm run seed && copy abx-data.sqlite dist\\ && copy build-config.json dist\\",
     "package:unix": "npm run build:ncc && cp -r public dist/ && cp .env.example dist/.env && npm run seed && cp abx-data.sqlite dist/ && cp build-config.json dist/",
     "clean": "rimraf dist",
